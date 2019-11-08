@@ -1,31 +1,39 @@
 var mongoose = require("../navbar-module/node_modules/mongoose/index.js");
-mongoose.connect("mongodb://localhost/mediunDB");
+var config = require("../config.js");
+var uri = config.mongoURI;
 
-var db = mongoose.connection;
+mongoose
+  .connect(uri, { useNewUrlParser: true, useCreateIndex: true, dbName: "test" })
+  .catch(error => console.log("this is error!", error));
 
-db.on("error", function() {
-  console.log("mongoose connection error");
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connection established successfully");
 });
 
-db.once("open", function() {
-  console.log("mongoose connected successfully");
+var itemSchema = mongoose.Schema({
+  quantity: Number,
+  description: String
 });
 
-// var itemSchema = mongoose.Schema({
-//   quantity: Number,
-//   description: String
-// });
+var Item = mongoose.model("Item", itemSchema);
+var newItem = new Item({
+  quantity: 10,
+  description: "Test Test"
+});
+newItem.save();
 
-// var Item = mongoose.model("Item", itemSchema);
+var selectAll = function(callback) {
+  Item.find({}, function(err, items) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, items);
+    }
+  });
+};
 
-// var selectAll = function(callback) {
-//   Item.find({}, function(err, items) {
-//     if (err) {
-//       callback(err, null);
-//     } else {
-//       callback(null, items);
-//     }
-//   });
-// };
-
-// module.exports.selectAll = selectAll;
+selectAll((err, result) => {
+  console.log(result);
+});
+module.exports.selectAll = selectAll;
