@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import $ from "jquery";
 import List from "./components/List.jsx";
 import "../public/style.css";
-class App extends React.Component {
+class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -12,11 +12,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello From App</h1>
+        <h1>Hello From Navbar</h1>
         <List />
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(<Navbar />, document.getElementById("navbar"));

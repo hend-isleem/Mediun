@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var items = require("../../database-mongo");
-const port = 3003;
+const port = 3000;
 
 var app = express();
 
