@@ -1,25 +1,40 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var items = require("../../database-mongo");
-const port = process.env.PORT || 3004;
+const express = require('express');
+const bodyParser = require('body-parser');
+const SSE = require('express-sse');
+const path = require('path');
+const db = require('../database-mongo/index');
 
-var app = express();
+const port = process.env.PORT || 3003;
 
-app.use(express.static(__dirname + "/../public"));
+const app = express();
+
+app.use(express.static(path.join(`${__dirname}/../public`)));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.get("/items", function(req, res) {
-  // items.selectAll(function(err, data) {
-  //   if (err) {
-  //     res.sendStatus(500);
-  //   } else {
-  //     res.json(data);
-  //   }
-  // });
-  console.log(req.body);
-  res.end("heeeeeeeeeey");
+const sse = new SSE();
+const articleModel = db.Article;
+const userModel = db.User;
+
+// open channel at /stream so we can send from server to client through this channel
+app.get('/stream', sse.init);
+
+app.get('/responses/:id', (req) => {
+  // TODO: your code here
+  const { id } = req.params;
+  db.selectAll(userModel, id, (err, result) => {
+    if (err) {
+      throw err;
+    } else {
+      sse.send(result);
+    }
+  });
 });
 
-app.listen(port, function() {
+app.get('*', (req, res) => {
+  res.sendFile(path.join(`${__dirname}/../public`));
+});
+
+app.listen(port, () => {
   console.log(`listening on port ${port}!`);
 });
