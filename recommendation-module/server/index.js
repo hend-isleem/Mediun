@@ -19,26 +19,25 @@ const userModel = db.User;
 // open channel at /stream so we can send from server to client through this channel
 app.get('/stream', sse.init);
 
-
 //get the data from the db (here, it gets all the users and the articles by putting them into one object.)
-app.get('/recommendations/:id', (req,res) => {
+app.get('/recommendations/:id', (req, res) => {
   const allData = {};
   db.selectAll(userModel, (err, users) => {
     if (err) {
       throw err;
-    }else{
-        allData["users"] = users;
-        db.selectAll(articleModel, (err, arts) => {
-          if (err) {
-            throw err;
-          }else{
-            allData["articles"] = arts;
-            sse.send(allData);
-            console.log('alldata is sent! ', allData);
-            res.status(204).send();
-          }
-        });
-    }   
+    } else {
+      allData['users'] = users;
+      db.selectAll(articleModel, (err, arts) => {
+        if (err) {
+          throw err;
+        } else {
+          allData['articles'] = arts;
+          sse.send(allData);
+          console.log('alldata is sent! ', allData);
+          res.status(204).send();
+        }
+      });
+    }
   });
 });
 

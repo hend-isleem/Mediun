@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Footer from './components/Footer.jsx';
-import All from "./components/All.jsx";
+import All from './components/All.jsx';
 import '../public/style.css';
 
 class Recommendation extends React.Component {
@@ -21,7 +21,9 @@ class Recommendation extends React.Component {
 
   updateContent() {
     const that = this;
-    this.eventSource = new EventSource('http://localhost:3004/stream');
+    this.eventSource = new EventSource(
+      'https://afternoon-hamlet-52294.herokuapp.com/stream'
+    );
     this.eventSource.onopen = () => {
       console.log('es open');
     };
@@ -39,18 +41,18 @@ class Recommendation extends React.Component {
   render() {
     // console.log("in the index, users are: ", this.state.users);
     // console.log("in the index, arts are: ", this.state.arts);
-    return (
+    return this.state.users.length ? (
       <div>
-        <div className="RecComp">
-          <div className="RECAall">
-            <div className="RECindex">
-              {this.state.users.length ? <All users={this.state.users} arts={this.state.arts}/>: null}
+        <div className='RecComp'>
+          <div className='RECAall'>
+            <div className='RECindex'>
+              <All users={this.state.users} arts={this.state.arts} />
             </div>
           </div>
         </div>
         <Footer />
       </div>
-    );
+    ) : null;
   }
 }
 
