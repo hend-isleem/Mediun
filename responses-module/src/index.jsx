@@ -30,15 +30,14 @@ class Responses extends React.Component {
       console.log('no response');
     };
     this.eventSource.onmessage = (result) => {
-      console.log("dataaaaa",JSON.parse(result.data));
-      // const { articles } = JSON.parse(result.data);
-      // console.log('result: ', articles);
-      that.setState({ comments: JSON.parse(result.data) });
+    // console.log("dataaaaa",JSON.parse(result.data));
+    // const { articles } = JSON.parse(result.data);
+    // console.log('result: ', articles);
+    that.setState({ comments: JSON.parse(result.data) });
     };
   }
 
   render() {
-    console.log('inside render in the main page', this.state.comments);    
     return (
       <div>
         <a id="commentsBox" className="commentsBox"> 
@@ -47,9 +46,8 @@ class Responses extends React.Component {
           </button>
         </a>
         {this.state.showList && <List comments={this.state.comments} />}
-        </div>
+      </div>
     );
   }
 }
-  
 ReactDOM.render(<Responses />, document.getElementById('responses'));

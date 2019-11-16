@@ -18,6 +18,7 @@ const userModel = db.User;
 // open channel at /stream so we can send from server to client through this channel
 app.get('/stream', sse.init);
 
+// selectAll the Articles and then the comments in the article 
 app.get('/responses/:id', (req, res) => {
   const { id } = req.params;
   db.selectAll(articleModel, id, (err, result) => {
@@ -26,7 +27,7 @@ app.get('/responses/:id', (req, res) => {
     } else {
       const comments = result[0].comments;
       sse.send(comments);
-      console.log("hi from the server ",comments)
+      //console.log("hi from the server ",comments)
       res.status(204).send();
     }
   });
