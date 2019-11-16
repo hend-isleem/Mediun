@@ -1,7 +1,7 @@
 const mongoose = require('../node_modules/mongoose/index.js');
-const config = require("../../config.js");
-const uri = process.env.mongoURI || config.mongoURI;
-
+// const config = require("../../config.js");
+const uri = process.env.mongoURI;
+// || config.mongoURI;
 
 // check mongoose connection
 mongoose
@@ -43,21 +43,19 @@ const articleSchema = mongoose.Schema({
   tags: { type: Array }
 });
 
-
 //creating the models
 const User = mongoose.model('User', userSchema);
 const Article = mongoose.model('Article', articleSchema);
 
-
 // selectAll to get data from db depeding on the model i send.
-const selectAll = function(model,callback) {
-    model.find({}, function(err, result) {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, result);
-      }
-    })
+const selectAll = function(model, callback) {
+  model.find({}, function(err, result) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
+    }
+  });
 };
 
 // saveUsers to save users from the dummyData file..
@@ -76,8 +74,6 @@ const selectAll = function(model,callback) {
 //   }
 // };
 // saveUsers(dummy);
-
-
 
 // saveArt to save articles from the dummyData file..
 

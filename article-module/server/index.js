@@ -19,14 +19,21 @@ const userModel = db.User;
 // open channel at /stream so we can send from server to client through this channel
 app.get('/stream', sse.init);
 
-app.get('/article/:id', (req) => {
+app.get('/article/:id', (req, res) => {
   // TODO: your code here
+  var result = {};
   const { id } = req.params;
-  db.selectAll(userModel, id, (err, result) => {
+  console.log(id);
+  db.selectAll(articleModel, id, (err, article) => {
     if (err) {
       throw err;
     } else {
-      sse.send(result);
+      result.article = article;
+      db.getAuthor(userModel, article[0].id, function(user) {
+        result.user = user;
+        sse.send(result);
+        res.status(204).send();
+      });
     }
   });
 });

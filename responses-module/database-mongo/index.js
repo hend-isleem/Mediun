@@ -1,6 +1,7 @@
 const mongoose = require('../node_modules/mongoose/index.js');
-const config = require('../../config.js');
-const uri = process.env.mongoURI || config.mongoURI;
+// const config = require('../../config.js');
+const uri = process.env.mongoURI;
+// || config.mongoURI;
 
 mongoose
   .connect(uri, {
@@ -54,4 +55,3 @@ const selectAll = function(obj, id, callback) {
 module.exports.selectAll = selectAll;
 module.exports.User = User;
 module.exports.Article = Article;
-

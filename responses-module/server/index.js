@@ -18,7 +18,7 @@ const userModel = db.User;
 // open channel at /stream so we can send from server to client through this channel
 app.get('/stream', sse.init);
 
-// selectAll the Articles and then the comments in the article 
+// selectAll the Articles and then the comments in the article
 app.get('/responses/:id', (req, res) => {
   const { id } = req.params;
   db.selectAll(articleModel, id, (err, result) => {
@@ -31,7 +31,7 @@ app.get('/responses/:id', (req, res) => {
       res.status(204).send();
     }
   });
- });
+});
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../public`));
 });
