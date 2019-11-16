@@ -11,18 +11,19 @@ class All extends React.Component {
     };
   }
 
+  // to get 3 random items of an array
   random(arr) {
     var result = [];
     while (result.length < 3) {
       var randomnum = Math.floor(Math.random() * arr.length);
       if (!(result.includes(arr[randomnum]))) {
-        console.log('the number was: ', randomnum)
         result.push(arr[randomnum]);
       }
     }
     return result;
   }
   
+  // to get a user by it's userId
   getUserById(id) {
     return this.state.users.filter((user) =>  user.id === id);
   }
@@ -30,18 +31,16 @@ class All extends React.Component {
   render() {
     // console.log('in All, the users are ', this.state.users);
     // console.log('in All, the articles are ', this.state.arts);
+
+    // getting 3 random articles.
     var randomArts = this.random(this.state.arts);
-    // var randomArts = this.random(this.state.arts);
-    console.log("RANDOOOOM: ", randomArts.length)
+
     return( <div>
       <h2 className="RECmore">More From Medium</h2>
       <div className="RECall">
         {randomArts.map(oneArt => {
           return <OneComp key={oneArt._id} art={oneArt} user={this.getUserById(oneArt.authorId)[0]}/>;
         })}
-        {/* <OneComp art={randomArts[0]} users={this.state.users}/>
-        <OneComp art={randomArts[1]} users={this.state.users}/>
-        <OneComp art={randomArts[2]} users={this.state.users}/>  */}
       </div>
     </div>
     );

@@ -8,8 +8,7 @@ const port = process.env.PORT || 3004;
 
 const app = express();
 
-app.use(express.static(__dirname + "/../public"));
-// app.use(express.static(path.join(`${__dirname}/../public`)));
+app.use(express.static(path.join(`${__dirname}/../public`)));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -20,12 +19,10 @@ const userModel = db.User;
 // open channel at /stream so we can send from server to client through this channel
 app.get('/stream', sse.init);
 
+
+//get the data from the db (here, it gets all the users and the articles by putting them into one object.)
 app.get('/recommendations/:id', (req,res) => {
-  // TODO: your code here
-  // console.log("inside")
-  // const { id } = req.params;
   const allData = {};
-  // console.log(id);
   db.selectAll(userModel, (err, users) => {
     if (err) {
       throw err;
@@ -35,16 +32,24 @@ app.get('/recommendations/:id', (req,res) => {
           if (err) {
             throw err;
           }else{
-            // console.log('arts are: ', arts);
             allData["articles"] = arts;
             sse.send(allData);
             console.log('alldata is sent! ', allData);
             res.status(204).send();
-            // res.sendStatus(204);
           }
         });
     }   
   });
+});
+
+// the legal link in the footer
+app.get('/policy/9db0094a1e0f', (req, res) => {
+  res.send("Yes it's legal.. Why do you ask?");
+});
+
+// when clicking on the userName in the recommendation copmponent
+app.get('/user', (req, res) => {
+  res.send("looks like i'm a user");
 });
 
 app.get('*', (req, res) => {

@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import Footer from './components/Footer.jsx';
 import All from "./components/All.jsx";
 import '../public/style.css';
-// 'https://afternoon-hamlet-52294.herokuapp.com/stream'
 
 class Recommendation extends React.Component {
   constructor(props) {
@@ -17,7 +16,6 @@ class Recommendation extends React.Component {
   }
 
   componentDidMount() {
-    console.log("DidMount>> ",  this.state.users);
     this.updateContent();
   }
 
@@ -31,13 +29,9 @@ class Recommendation extends React.Component {
       console.log('no response');
     };
     this.eventSource.onmessage = (result) => {
-      // console.log('the results are ', result);
-      console.log('the result.data is ', JSON.parse(result.data));
-      // example
+      // console.log('what i recived is ', JSON.parse(result.data));
       const { users } = JSON.parse(result.data);
       const { articles } = JSON.parse(result.data);
-      // const { arts } = JSON.parse(result.data);
-      // console.log("arts are: ", articles);
       that.setState({ users: users, arts: articles });
     };
   }

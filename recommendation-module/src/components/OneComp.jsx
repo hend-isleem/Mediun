@@ -2,14 +2,12 @@ import React from "react";
 import Clap from "./Clap.jsx";
 
 const One = props => {
-    console.log('the author id is: ', props.art.authorId);
-    console.log('the author: ', props.user);
-    var monthes = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var formatted = new Date(props.art.createdAt);
-    var theDate = monthes[formatted.getMonth()] + " " + formatted.getDate() + "," + formatted.getFullYear() + " . ";
-    // var writer = props.users[props.art.authorId];
+    // steps to reformat the date:
+        var monthes = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var formatted = new Date(props.art.createdAt);
+        var theDate = monthes[formatted.getMonth()] + " " + formatted.getDate() + "," + formatted.getFullYear() + " . ";
+        
     var writer = props.user;
-    // return <h1>hahahah i'm the one comp!</h1>
 return <div className="REConeComp RECitem">
     <div className="RECimgAndTit">
         <div>
@@ -40,19 +38,19 @@ return <div className="REConeComp RECitem">
 
         <div className="RECflex RECsecondPart">
             <div className="RECflex RECauthor">
-                <a href="www.google.com" rel="noopener">
+                <a href={writer.pic} rel="noopener">
                     <img src={writer.pic} alt={writer.name} width="40" height="40" />
                 </a>
                 <div className="RECautorInfo">
                     <div className="RECflex RECname">
                         <span>
-                            <a className="RECa" href="www.google.com" rel="noopener">
+                            <a className="RECa" href="/user" rel="noopener">
                                 {writer.name}
                             </a>
                         </span>
                     </div>
                     <div className="RECflex RECdateAndMin">
-                        <a className="RECa" href="www.google.com" rel="noopener">
+                        <a className="RECa" href="/user" rel="noopener">
                             {theDate}
                         </a>
                         {props.art.readingTime} min read

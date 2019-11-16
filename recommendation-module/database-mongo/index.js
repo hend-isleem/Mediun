@@ -1,13 +1,14 @@
 const mongoose = require('../node_modules/mongoose/index.js');
-// const dummy = require("./dummydata");
 const config = require("../../config.js");
 const uri = process.env.mongoURI || config.mongoURI;
-// const uri = "mongodb+srv://hend:sleepyash@cluster0-ozydj.mongodb.net/Test?retryWrites=true&w=majority";
 
+
+// check mongoose connection
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
+    useUnifiedTopology: true,
     dbName: 'mediunDB'
   })
   .catch((error) => console.log('this is error!', error));
@@ -18,6 +19,7 @@ connection.once('open', () => {
   console.log('MongoDB database connection established successfully!');
 });
 
+// the user schema
 const userSchema = mongoose.Schema({
   id: { type: Number, unique: true },
   name: { type: String },
@@ -26,6 +28,7 @@ const userSchema = mongoose.Schema({
   bio: { type: String }
 });
 
+// the article schema
 const articleSchema = mongoose.Schema({
   id: { type: Number, unique: true },
   authorId: { type: Number },
@@ -40,52 +43,24 @@ const articleSchema = mongoose.Schema({
   tags: { type: Array }
 });
 
+
+//creating the models
 const User = mongoose.model('User', userSchema);
 const Article = mongoose.model('Article', articleSchema);
 
 
-const selectAll = function(model,callback,id) {
-  if(typeof id === 'undefined'){
+// selectAll to get data from db depeding on the model i send.
+const selectAll = function(model,callback) {
     model.find({}, function(err, result) {
       if (err) {
         callback(err, null);
       } else {
         callback(null, result);
       }
-    });
-  }else{
-    model.find({id:id}, function(err, result) {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, result);
-      }
-    });
-  }
-
+    })
 };
 
-
-// const selectAll = function(id, callback) {
-//   var allData = {};
-//   User.find({}, function(err, users) {
-//     if (err) {
-//       callback(err, null);
-//     } else {
-//       console.log(users+"users");
-//       allData["users"] = users;
-//       Article.find({id : id}, function(err, arts) {
-//         if (err) {
-//           callback(err, null);
-//         } else {
-//           console.log(arts+"arts");
-//           allData["arts"] = arts;
-//           callback(null, allData);
-//         }
-//       });
-//     }
-//   });
-// };
+// saveUsers to save users from the dummyData file..
 
 // const saveUsers = function(arrayOfObjs) {
 //   for (var i = 0; i < arrayOfObjs.length; i++) {
@@ -102,6 +77,9 @@ const selectAll = function(model,callback,id) {
 // };
 // saveUsers(dummy);
 
+
+
+// saveArt to save articles from the dummyData file..
 
 // const saveArt = function(arrayOfObjs) {
 //   for (var i = 0; i < arrayOfObjs.length; i++) {
