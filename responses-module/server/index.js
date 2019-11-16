@@ -5,7 +5,6 @@ const path = require('path');
 const db = require('../database-mongo/index');
 
 const port = process.env.PORT || 3003;
-
 const app = express();
 
 app.use(express.static(path.join(`${__dirname}/../public`)));
@@ -19,22 +18,22 @@ const userModel = db.User;
 // open channel at /stream so we can send from server to client through this channel
 app.get('/stream', sse.init);
 
-app.get('/responses/:id', (req) => {
-  // TODO: your code here
+app.get('/responses/:id', (req, res) => {
   const { id } = req.params;
-  db.selectAll(userModel, id, (err, result) => {
+  db.selectAll(articleModel, id, (err, result) => {
     if (err) {
       throw err;
     } else {
-      sse.send(result);
+      const comments = result[0].comments;
+      sse.send(comments);
+      console.log("hi from the server ",comments)
+      res.status(204).send();
     }
   });
-});
-
+ });
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../public`));
 });
-
 app.listen(port, () => {
   console.log(`listening on port ${port}!`);
 });

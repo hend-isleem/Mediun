@@ -1,5 +1,17 @@
 import React from 'react';
+import CommentPart from "./commentPart.jsx";
 
-const List = (props) => <div>Bye From List</div>;
-
+class List extends React.Component{
+    constructor(props){
+        super(props);
+        this.state ={
+        }
+    }
+    render(){
+        console.log("inside commentList ", this.props.comments)
+           return this.props.comments.map((comment,key)  => {
+                return <CommentPart  key={key} comment={comment} /> 
+            }) 
+    }
+}
 export default List;

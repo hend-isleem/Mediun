@@ -1,8 +1,6 @@
 const mongoose = require('../node_modules/mongoose/index.js');
-// const config = require('../../config.js');
-//
-const uri = process.env.mongoURI;
-// || config.mongoURI;
+const config = require('../../config.js');
+const uri = process.env.mongoURI || config.mongoURI;
 
 mongoose
   .connect(uri, {
@@ -37,7 +35,6 @@ const articleSchema = mongoose.Schema({
   text: { type: String },
   clapsNumber: { type: Number },
   comments: { type: Array },
-  suggested: { type: Array },
   tags: { type: Array }
 });
 
@@ -54,19 +51,7 @@ const selectAll = function(obj, id, callback) {
   });
 };
 
-// const test = new User({
-//   id: 10,
-//   name: "Adel",
-//   pic: "asdwerwef",
-//   email: "adel@gmail.com",
-//   bio: "I'm the Tech Mentor, I'm not a student"
-// });
-
-// test.save();
-// selectAll((err, result) => {
-//   console.log(result);
-// });
-
 module.exports.selectAll = selectAll;
 module.exports.User = User;
 module.exports.Article = Article;
+
