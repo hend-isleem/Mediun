@@ -1,8 +1,7 @@
 const mongoose = require('../node_modules/mongoose/index.js');
-// const config = require('../../config.js');
+const config = require('../../config.js');
 //
-const uri = process.env.mongoURI;
-// || config.mongoURI;
+const uri = process.env.mongoURI || config.mongoURI;
 
 mongoose
   .connect(uri, {
