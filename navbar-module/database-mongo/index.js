@@ -7,6 +7,7 @@ mongoose
   .connect(uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
+    useUnifiedTopology: true,
     dbName: "mediunDB",
   })
   .catch((error) => console.log("this is error!", error));
@@ -52,19 +53,6 @@ const selectAll = function(obj, id, callback) {
     }
   });
 };
-
-// const test = new User({
-//   id: 10,
-//   name: "Adel",
-//   pic: "asdwerwef",
-//   email: "adel@gmail.com",
-//   bio: "I'm the Tech Mentor, I'm not a student"
-// });
-
-// test.save();
-// selectAll((err, result) => {
-//   console.log(result);
-// });
 
 module.exports.selectAll = selectAll;
 module.exports.User = User;

@@ -1,7 +1,6 @@
-const mongoose = require('../node_modules/mongoose/index.js');
+const mongoose = require("../node_modules/mongoose/index.js");
 const config = require("../../config.js");
 const uri = process.env.mongoURI || config.mongoURI;
-
 
 // check mongoose connection
 mongoose
@@ -9,14 +8,14 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    dbName: 'mediunDB'
+    dbName: "mediunDB",
   })
-  .catch((error) => console.log('this is error!', error));
+  .catch((error) => console.log("this is error!", error));
 
 const { connection } = mongoose;
 
-connection.once('open', () => {
-  console.log('MongoDB database connection established successfully!');
+connection.once("open", () => {
+  console.log("MongoDB database connection established successfully!");
 });
 
 // the user schema
@@ -25,7 +24,7 @@ const userSchema = mongoose.Schema({
   name: { type: String },
   pic: { type: String },
   email: { type: String },
-  bio: { type: String }
+  bio: { type: String },
 });
 
 // the article schema
@@ -40,24 +39,22 @@ const articleSchema = mongoose.Schema({
   text: { type: String },
   clapsNumber: { type: Number },
   comments: { type: Array },
-  tags: { type: Array }
+  tags: { type: Array },
 });
 
-
 //creating the models
-const User = mongoose.model('User', userSchema);
-const Article = mongoose.model('Article', articleSchema);
-
+const User = mongoose.model("User", userSchema);
+const Article = mongoose.model("Article", articleSchema);
 
 // selectAll to get data from db depeding on the model i send.
-const selectAll = function(model,callback) {
-    model.find({}, function(err, result) {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, result);
-      }
-    })
+const selectAll = function(model, callback) {
+  model.find({}, function(err, result) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
+    }
+  });
 };
 
 // saveUsers to save users from the dummyData file..
@@ -76,8 +73,6 @@ const selectAll = function(model,callback) {
 //   }
 // };
 // saveUsers(dummy);
-
-
 
 // saveArt to save articles from the dummyData file..
 

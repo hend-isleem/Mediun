@@ -1,5 +1,6 @@
 const mongoose = require("../node_modules/mongoose/index.js");
 const config = require("../../config.js");
+// const seed = require('../database-mongo/seedData.js');
 //
 const uri = process.env.mongoURI || config.mongoURI;
 
@@ -37,12 +38,27 @@ const articleSchema = mongoose.Schema({
   text: { type: String },
   clapsNumber: { type: Number },
   comments: { type: Array },
-  suggested: { type: Array },
+  // suggested: { type: Array },
   tags: { type: Array },
 });
 
-const User = mongoose.model("User", userSchema);
-const Article = mongoose.model("Article", articleSchema);
+
+const User = mongoose.model('User', userSchema);
+const Article = mongoose.model('Article', articleSchema);
+// console.log(seed);
+// seed.map((e) => {
+//   const { id, name, pic, email, bio } = e;
+//   const row = new User({
+//     id,
+//     name,
+//     pic,
+//     email,
+//     bio
+//   });
+//   row.save();
+// });
+// console.log('asdf');
+// console.log(seed);
 
 const selectAll = function(obj, id, callback) {
   obj.find({ id: id }, function(err, items) {
@@ -54,19 +70,15 @@ const selectAll = function(obj, id, callback) {
   });
 };
 
-// const test = new User({
-//   id: 10,
-//   name: "Adel",
-//   pic: "asdwerwef",
-//   email: "adel@gmail.com",
-//   bio: "I'm the Tech Mentor, I'm not a student"
-// });
+const getAuthor = function(model, authorId, callback) {
+  model.findOne({ id: authorId }).exec(function(err, user) {
+    if (err) throw err;
+    callback(user);
+    // prints "The author is Ian Fleming"
+  });
+};
 
-// test.save();
-// selectAll((err, result) => {
-//   console.log(result);
-// });
-
+module.exports.getAuthor = getAuthor;
 module.exports.selectAll = selectAll;
 module.exports.User = User;
 module.exports.Article = Article;

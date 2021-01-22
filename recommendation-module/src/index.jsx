@@ -1,16 +1,16 @@
 /* eslint-disable import/extensions */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Footer from './components/Footer.jsx';
+import React from "react";
+import ReactDOM from "react-dom";
+import Footer from "./components/Footer.jsx";
 import All from "./components/All.jsx";
-import '../public/style.css';
+import "../public/style.css";
 
 class Recommendation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
-      arts: []
+      arts: [],
     };
     this.updateContent = this.updateContent.bind(this);
   }
@@ -21,12 +21,16 @@ class Recommendation extends React.Component {
 
   updateContent() {
     const that = this;
-    this.eventSource = new EventSource('http://localhost:3004/stream');
+    this.eventSource = new EventSource(
+      // 'https://afternoon-hamlet-52294.herokuapp.com/stream'
+      // `http://localhost:3004/recommendations/stream`
+      `http://localhost:3004/recommendations`
+    );
     this.eventSource.onopen = () => {
-      console.log('es open');
+      console.log("es open");
     };
     this.eventSource.onerror = () => {
-      console.log('no response');
+      console.log("no response");
     };
     this.eventSource.onmessage = (result) => {
       // console.log('what i recived is ', JSON.parse(result.data));
@@ -39,19 +43,19 @@ class Recommendation extends React.Component {
   render() {
     // console.log("in the index, users are: ", this.state.users);
     // console.log("in the index, arts are: ", this.state.arts);
-    return (
+    return this.state.users.length ? (
       <div>
         <div className="RecComp">
           <div className="RECAall">
             <div className="RECindex">
-              {this.state.users.length ? <All users={this.state.users} arts={this.state.arts}/>: null}
+              <All users={this.state.users} arts={this.state.arts} />
             </div>
           </div>
         </div>
         <Footer />
       </div>
-    );
+    ) : null;
   }
 }
 
-ReactDOM.render(<Recommendation />, document.getElementById('recommendation'));
+ReactDOM.render(<Recommendation />, document.getElementById("recommendation"));

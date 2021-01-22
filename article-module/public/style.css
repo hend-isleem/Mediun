@@ -1,3 +1,186 @@
-h1 {
-  color: red;
+* {
+  box-sizing: border-box;
+}
+/* Article Heading */
+.container {
+  padding-top: 40px;
+  width: 800px;
+}
+#articleTitle {
+  line-height: 48px;
+  font-size: 36px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#articleSubTitle {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 20px;
+  line-height: 32px;
+  margin-top: 16px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Arial,
+    sans-serif;
+}
+.authorData {
+  display: flex;
+  margin-top: 32px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+.up,
+.bottom {
+  display: block;
+}
+.up {
+  font-size: 14px;
+}
+.bottom {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Arial,
+    sans-serif;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 13px;
+}
+.authorData img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#autorName {
+  margin-right: 10px;
+}
+#autorName:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#followBtn button {
+  cursor: pointer;
+  padding: 1px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  line-height: 18px;
+}
+#articleImg {
+  margin-top: 50px;
+}
+/* Article Content */
+.content {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+/* After article [tags, social]*/
+.social {
+  padding-top: 20px;
+}
+.articleTags,
+.socialMedia {
+  list-style: none;
+  padding: 0px;
+  display: flex;
+  margin-bottom: 25px;
+}
+.articleTags .tag {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+.articleTags .tag a {
+  line-height: 22px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 15px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.54);
+  font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.socialItem {
+  margin: 0px 5px;
+}
+.socialItem a {
+  text-decoration: none;
+}
+.socialItem #twitter {
+  color: #00acee;
+}
+.socialItem #bookmark,
+.socialItem #dots {
+  color: #000000;
+}
+
+.articleSoical {
+  display: flex;
+  justify-content: space-between;
+}
+#clapsIcon {
+  border: 1px solid grey;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 15px;
+}
+#clapsNumber {
+  margin-left: 20px;
+}
+.articleSoical {
+  border-bottom: 1px solid #8b8b8f;
+  padding-bottom: 10px;
+}
+/* Writer */
+.writer,
+.flex-container {
+  display: flex;
+}
+.writer {
+  margin-bottom: 30px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Arial,
+    sans-serif;
+}
+.flex-container {
+  width: 700px;
+  justify-content: space-between;
+}
+.up1,
+.middle1,
+.bottom1 {
+  margin-top: 10px;
+}
+.writer-container {
+  padding-top: 20px;
+}
+#writerfollowBtn button {
+  cursor: pointer;
+  padding: 4px 12px;
+  text-decoration: none;
+  border-radius: 4px;
+  color: rgba(0, 147, 221, 1);
+  border-color: rgba(0, 147, 221, 1);
+  font-size: 15px;
+  line-height: 20px;
+}
+#writerImg {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  margin-top: 15px;
+}
+#writtenBy {
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 15px;
+  line-height: 20px;
+}
+#autohrName {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 600;
+}
+#authorBio {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.54);
 }
